@@ -4,7 +4,7 @@
 >
 > — Now let's review this code before it enters the kingdom.
 
-<p align="center">
+<p align="right">
   <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHI4bnUweGRwdWU5NjI1aDFhaHQ1YTY2MmU3dG03Y3Q5dXFyZTEwcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tB8Wl0JABkSkQa7vGE/giphy.gif" alt="Good morning my neighbors - Coming to America" width="400"/>
 </p>
 
