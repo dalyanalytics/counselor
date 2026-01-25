@@ -1,0 +1,15 @@
+# counselor API Keys
+# Copy this file to .Renviron and fill in your actual keys
+# NEVER commit .Renviron with real keys!
+
+# Anthropic - for Claude conversation intelligence
+# Get yours at: https://console.anthropic.com/
+ANTHROPIC_API_KEY=your-anthropic-key-here
+
+# Deepgram - for speech-to-text
+# Get yours at: https://console.deepgram.com/
+DEEPGRAM_API_KEY=your-deepgram-key-here
+
+# Cartesia - for text-to-speech
+# Get yours at: https://cartesia.ai/
+CARTESIA_API_KEY=your-cartesia-key-here
