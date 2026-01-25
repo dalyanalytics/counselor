@@ -1,16 +1,16 @@
-# counselor <img src="man/figures/logo.png" align="right" height="139" alt="" />
+# counselor 👑 <img src="man/figures/logo.png" align="right" height="139" alt="" />
+
+<img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW90cmx6d3M0MXhhYjZ5MjMxZjJyNWxqZ2pxdXMzdHl5bnoyOG9ybyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Kxzh8JurnisGhzsyk5/giphy.gif" alt="Good morning my neighbors - Coming to America" width="280" align="right"/>
 
 > *"Good morning, my neighbors!"*
 >
 > — Now let's review this code before it enters the kingdom.
 
-<p align="right">
-  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHI4bnUweGRwdWU5NjI1aDFhaHQ1YTY2MmU3dG03Y3Q5dXFyZTEwcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/tB8Wl0JABkSkQa7vGE/giphy.gif" alt="Good morning my neighbors - Coming to America" width="400"/>
-</p>
-
 Voice-powered code review for human oversight of AI-assisted development.
 
-## The McDowell's Approach
+<br clear="both"/>
+
+## 🍟 The McDowell's Approach
 
 They have the Golden Arches. We have the Golden Arcs.
 
@@ -20,7 +20,7 @@ They auto-commit AI-generated code without review. We engage in thoughtful voice
 
 **The developer always has final say.** Nothing commits without your explicit voice approval. You are the ruler of your codebase — *as Prince Akeem would say, you must choose for yourself.*
 
-## Why Voice?
+## 🎤 Why Voice?
 
 - **Hands stay on keyboard** — no context switching to review UIs
 - **Natural conversation** — ask questions, get clarification, discuss concerns
@@ -29,7 +29,7 @@ They auto-commit AI-generated code without review. We engage in thoughtful voice
 
 Think of it as your royal counselor — the one who actually tells you the truth, not just what you want to hear.
 
-## Installation
+## 📦 Installation
 
 ```r
 # Install from GitHub
@@ -39,9 +39,9 @@ pak::pak("dalyanalytics/counselor")
 devtools::install_github("dalyanalytics/counselor")
 ```
 
-## Setup
+## ⚙️ Setup
 
-### 1. Get API Keys
+### 1. Get API Keys 🔑
 
 You'll need three API keys:
 
@@ -67,7 +67,7 @@ usethis::edit_r_environ()
 # Add your keys, then restart R
 ```
 
-### 3. Install Git Hook
+### 3. Install Git Hook 🪝
 
 In any project where you want voice reviews:
 
@@ -77,7 +77,7 @@ counselor::install_hooks()
 
 Now every `git commit` will trigger a voice review session.
 
-## Usage
+## 👑 Usage
 
 ### Automatic (via git hook)
 
@@ -112,20 +112,20 @@ counselor::start_session()
 COUNSELOR_SKIP=1 git commit -m "Quick fix"
 ```
 
-## Voice Commands
+## 🗣️ Voice Commands
 
 During a review session:
 
 | Say | Effect |
 |-----|--------|
-| "approve", "looks good", "ship it", "lgtm" | Approve and proceed with commit |
-| "reject", "abort", "cancel", "wait" | Abort the commit |
-| "goodbye", "exit", "bye", "I'm done" | End session gracefully (commit stays staged) |
-| Any question | AI explains that part of the diff |
+| "approve", "looks good", "ship it", "lgtm" | ✅ Approve and proceed with commit |
+| "reject", "abort", "cancel", "wait" | ❌ Abort the commit |
+| "goodbye", "exit", "bye", "I'm done" | 👋 End session gracefully (commit stays staged) |
+| Any question | 💬 AI explains that part of the diff |
 
 The "goodbye" option is perfect for when you need to step away or want to review manually without making a decision yet.
 
-## What Gets Reviewed
+## 🔍 What Gets Reviewed
 
 The AI analyzes your staged changes and highlights:
 
@@ -134,7 +134,7 @@ The AI analyzes your staged changes and highlights:
 - **Risky operations**: File deletion, system commands, external downloads
 - **Sensitive files**: .env, credentials, keys being modified
 
-## Security Module
+## 🛡️ Security Module
 
 {counselor} includes a comprehensive security module to protect against potentially dangerous operations triggered by voice input:
 
@@ -170,7 +170,7 @@ counselor::audit_security_logs(days = 30)
 
 All security events are logged to `~/.counselor/security_logs/` for auditing.
 
-## Cost Tracking
+## 💰 Cost Tracking
 
 Sessions are logged with token usage and cost:
 
@@ -184,9 +184,9 @@ counselor::read_logs(months = 3)
 
 Typical session cost: **~$0.02-0.05**
 
-## Configuration
+## 🎛️ Configuration
 
-### Change Voice
+### Change Voice 🔊
 
 Cartesia offers multiple voices. Find voice IDs at [play.cartesia.ai](https://play.cartesia.ai/):
 
@@ -213,7 +213,7 @@ counselor::remove_hooks()
 counselor::remove_hooks(restore_backup = TRUE)
 ```
 
-## Technical Stack
+## 🐆 Technical Stack
 
 - **R**: Package interface, git integration via {git2r}, conversation via {ellmer}
 - **Python** (via {reticulate}): Voice I/O using Pipecat services
@@ -221,14 +221,14 @@ counselor::remove_hooks(restore_backup = TRUE)
 - **Cartesia**: Sonic-2 model for text-to-speech
 - **Claude**: Conversation intelligence via {ellmer}
 
-## Requirements
+## 📋 Requirements
 
 - R >= 4.1.0
 - Python >= 3.10
 - Working microphone and speakers
 - macOS, Linux, or Windows
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
 ### "No speech detected"
 
@@ -263,7 +263,7 @@ counselor::hook_status()
 # In terminal: ls -la .git/hooks/pre-commit
 ```
 
-## Privacy & Security
+## 🔒 Privacy & Security
 
 - **Local processing**: Audio is processed via API calls, not stored
 - **No training**: Your code/voice is not used to train models
@@ -271,7 +271,7 @@ counselor::hook_status()
 - **Keys are yours**: You control your own API keys
 - **Security auditing**: All blocked commands are logged for review
 
-## Philosophy
+## 💇 Philosophy
 
 Prince Akeem didn't want an arranged marriage. He wanted to find someone who would challenge him, question him, and choose him for who he really was.
 
@@ -279,11 +279,11 @@ Your codebase deserves the same consideration. Don't just accept whatever the AI
 
 {counselor} is your barbershop moment. The place where real talk happens before you make your move.
 
-## License
+## 📜 License
 
 MIT
 
-## Author
+## 🌹 Author
 
 Jasmine Daly ([@dalyanalytics](https://github.com/dalyanalytics))
 
