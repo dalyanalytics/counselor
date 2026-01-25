@@ -1,0 +1,26 @@
+Package: counselor
+Title: Voice-Powered Code Review for Human Oversight of AI-Assisted Development
+Version: 0.1.0
+Authors@R:
+    person("Jasmine", "Daly", , "jasmine@dalyanalytics.com", role = c("aut", "cre"))
+Description: Intercepts git commits and engages developers in voice conversations
+    to review AI-generated code changes before they proceed. Uses ellmer for
+    conversation intelligence with Claude, and Pipecat for voice I/O via Deepgram
+    (speech-to-text) and Cartesia (text-to-speech). The developer remains in
+    control - nothing commits without explicit approval.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    cli,
+    ellmer,
+    git2r,
+    glue,
+    jsonlite,
+    reticulate
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+URL: https://github.com/dalyanalytics/counselor
+BugReports: https://github.com/dalyanalytics/counselor/issues
