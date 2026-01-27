@@ -6,7 +6,7 @@
 *Voice-powered code review for human oversight of AI-assisted development.*
 
 
-## 🍟 The McDowell's Approach
+### 🍟 The McDowell's Approach
 
 They have the Golden Arches. We have the Golden Arcs.
 
