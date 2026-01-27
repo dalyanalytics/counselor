@@ -72,7 +72,7 @@ test_that("validate_voice_input handles edge cases", {
 test_that("validate_voice_input strict mode throws error", {
   expect_error(
     validate_voice_input("run sudo rm -rf", strict = TRUE),
-    "blacklisted command pattern"
+    "denied command pattern"
   )
 })
 
@@ -271,8 +271,8 @@ test_that("safe_eval blocks dangerous expressions", {
   expect_null(safe_eval("download.file('http://bad.com', 'file')"))
 })
 
-test_that("safe_eval blocks blacklisted patterns", {
-  # These contain patterns from COMMAND_BLACKLIST
+test_that("safe_eval blocks denied patterns", {
+  # These contain patterns from COMMAND_DENYLIST
   expect_null(safe_eval("x <- 'rm -rf /'"))
   expect_null(safe_eval("system('sudo apt')"))
 })

@@ -137,7 +137,7 @@ The AI analyzes your staged changes and highlights:
 {counselor} includes a comprehensive security module to protect against potentially dangerous operations triggered by voice input:
 
 ```r
-# Validate voice input against command blacklist
+# Validate voice input against command denylist
 counselor::validate_voice_input("please review the auth changes")  # OK
 counselor::validate_voice_input("run sudo rm -rf /")  # Blocked!
 
@@ -154,7 +154,7 @@ if (counselor::request_voice_confirmation("delete all test files")) {
 counselor::sanitize_code_for_review('api_key <- "sk-1234567890"')
 # Returns: 'api_key = "[REDACTED]"'
 
-# Safe eval wrapper with function allowlist
+# Safe eval wrapper with function allow list
 counselor::safe_eval("1 + 1")  # OK
 counselor::safe_eval("system('ls')")  # Blocked!
 

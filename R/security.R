@@ -6,8 +6,8 @@
 #' @name security
 NULL
 
-# Blacklisted commands that should never be executed from voice input
-COMMAND_BLACKLIST <- c(
+# Denied commands that should never be executed from voice input
+COMMAND_DENYLIST <- c(
 
   # Destructive file operations
   "rm -rf",
@@ -56,10 +56,10 @@ RISKY_PATTERNS <- c(
 #'
 #' Checks voice input for potentially dangerous commands or patterns before
 #' processing. Returns a sanitized version of the input or raises an error
-#' if blacklisted commands are detected.
+#' if blocked commands are detected.
 #'
 #' @param input Character string from voice transcription.
-#' @param strict Logical. If TRUE, raises error on blacklisted commands.
+#' @param strict Logical. If TRUE, raises error on denied commands.
 #'   If FALSE, returns NULL and logs a warning.
 #'
 #' @return The sanitized input string, or NULL if blocked.
@@ -81,8 +81,8 @@ validate_voice_input <- function(input, strict = FALSE) {
   input <- trimws(input)
   input_lower <- tolower(input)
 
-  # Check against blacklist
-  for (pattern in COMMAND_BLACKLIST) {
+  # Check against denylist
+  for (pattern in COMMAND_DENYLIST) {
     if (grepl(pattern, input_lower, ignore.case = TRUE)) {
       msg <- paste0("Blocked potentially dangerous command pattern: ", pattern)
       cli::cli_alert_danger(msg)
@@ -90,7 +90,7 @@ validate_voice_input <- function(input, strict = FALSE) {
 
       if (strict) {
         cli::cli_abort(c(
-          "Voice input contains blacklisted command pattern.",
+          "Voice input contains denied command pattern.",
           "i" = "Pattern detected: {.val {pattern}}",
           "i" = "This command cannot be executed via voice input."
         ))
@@ -267,7 +267,7 @@ sanitize_code_for_review <- function(code) {
 #' }
 safe_eval <- function(expr, envir = parent.frame(), allow_list = NULL) {
   if (is.character(expr)) {
-    # Check against blacklist first
+    # Check against denylist first
     validated <- validate_voice_input(expr, strict = FALSE
     )
     if (is.null(validated)) {
