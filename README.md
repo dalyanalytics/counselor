@@ -2,13 +2,9 @@
 
 <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW90cmx6d3M0MXhhYjZ5MjMxZjJyNWxqZ2pxdXMzdHl5bnoyOG9ybyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Kxzh8JurnisGhzsyk5/giphy.gif" alt="Good morning my neighbors - Coming to America" width="280" align="right"/>
 
-> *"Good morning, my neighbors!"*
->
-> — Now let's review this code before it enters the kingdom.
 
-Voice-powered code review for human oversight of AI-assisted development.
+*Voice-powered code review for human oversight of AI-assisted development.*
 
-<br clear="both"/>
 
 ## 🍟 The McDowell's Approach
 
@@ -19,6 +15,8 @@ They auto-commit AI-generated code without review. We engage in thoughtful voice
 {counselor} intercepts git commits and engages you in a voice conversation to review code changes before they proceed. Built for developers who use AI coding assistants (like Claude Code, Copilot, Cursor) and want to maintain meaningful human control over what gets committed.
 
 **The developer always has final say.** Nothing commits without your explicit voice approval. You are the ruler of your codebase — *as Prince Akeem would say, you must choose for yourself.*
+
+<br clear="both"/>
 
 ## 🎤 Why Voice?
 
