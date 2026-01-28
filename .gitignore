@@ -65,3 +65,6 @@ ENV/
 # API keys (never commit!)
 .env
 *.env
+
+# Local development context
+CLAUDE.md
