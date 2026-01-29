@@ -39,9 +39,15 @@ devtools::install_github("dalyanalytics/counselor")
 
 ## ⚙️ Setup
 
-### 1. Get API Keys 🔑
+### 1. Configure API Keys 🔑
 
-You'll need three API keys:
+Run the interactive setup wizard:
+
+```r
+counselor::counselor_setup()
+```
+
+This will guide you through getting and configuring your API keys:
 
 | Service | Purpose | Get it at |
 |---------|---------|-----------|
@@ -49,23 +55,17 @@ You'll need three API keys:
 | Deepgram | Speech-to-text | [console.deepgram.com](https://console.deepgram.com/) |
 | Cartesia | Text-to-speech | [cartesia.ai](https://cartesia.ai/) |
 
-### 2. Configure Environment
+Keys are stored globally in `~/.Renviron` so they work across all your R projects.
 
-Copy the template and add your keys:
+**Using 1Password?** Run `counselor_setup(use_1password = TRUE)` for secure credential management via 1Password CLI.
 
-```bash
-cp .Renviron.example .Renviron
-# Edit .Renviron with your actual keys
-```
-
-Or set them in R:
+**Check your configuration anytime:**
 
 ```r
-usethis::edit_r_environ()
-# Add your keys, then restart R
+counselor::check_api_keys()
 ```
 
-### 3. Install Git Hook 🪝
+### 2. Install Git Hook 🪝
 
 In any project where you want voice reviews:
 

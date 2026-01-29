@@ -117,7 +117,7 @@ validate_voice_input <- function(input, strict = FALSE) {
 #' @export
 #'
 #' @examples
-#' \dontrun
+#' \dontrun{
 #' check_risky_operation("please delete the old test files")
 #' # Returns list(risky = TRUE, patterns = "delete|remove|rm\\s", ...)
 #' }
