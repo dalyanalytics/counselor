@@ -78,6 +78,7 @@ Now every `git commit` will trigger a voice review session.
 ## 👑 Usage
 
 ### Automatic (via git hook)
+- making a change to test things out
 
 ```bash
 git add .
