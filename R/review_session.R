@@ -75,7 +75,10 @@ review_commit <- function(path = ".",
   )
 
   # Start the review conversation
-  cli::cli_rule("Code Review Session")
+  tty_output(paste0("\n", ansi_green_bold(), strrep("-", 50), ansi_reset()))
+  tty_output(paste0(ansi_green_bold(), "\U0001F451 Code Review Session", ansi_reset()), bell = TRUE)
+  tty_output(paste0(ansi_green_bold(), strrep("-", 50), ansi_reset()))
+  tty_output(paste0(ansi_dim(), "Say 'approve', 'reject', or 'goodbye' when ready", ansi_reset()))
 
   # Get initial response from AI
   intro_prompt <- "Please briefly introduce the changes you see and any concerns."
@@ -89,7 +92,7 @@ review_commit <- function(path = ".",
   # Log the session
   log_session(chat, result, diff_info)
 
-  cli::cli_rule()
+  tty_output(paste0(ansi_green_bold(), strrep("-", 50), ansi_reset()))
 
   list(
     approved = result$approved,
@@ -153,6 +156,7 @@ conversation_loop <- function(chat, voice, timeout_secs) {
     if (is_approval(user_input)) {
       farewell <- "Approved. Proceeding with the commit. Good luck!"
       output_response(farewell, voice)
+      tty_output(paste0("\n", ansi_bg_green(), ansi_bold(), " \u2714 COMMIT APPROVED ", ansi_reset()), bell = TRUE)
       transcript[[length(transcript) + 1]] <- list(role = "assistant", content = farewell)
       return(list(approved = TRUE, transcript = transcript))
     }
@@ -160,6 +164,7 @@ conversation_loop <- function(chat, voice, timeout_secs) {
     if (is_rejection(user_input)) {
       farewell <- "Understood. Aborting the commit so you can make changes. Let me know when you're ready to review again."
       output_response(farewell, voice)
+      tty_output(paste0("\n", ansi_bg_red(), ansi_bold(), " \u2718 COMMIT ABORTED ", ansi_reset()), bell = TRUE)
       transcript[[length(transcript) + 1]] <- list(role = "assistant", content = farewell)
       return(list(approved = FALSE, transcript = transcript))
     }
@@ -167,6 +172,7 @@ conversation_loop <- function(chat, voice, timeout_secs) {
     if (is_exit(user_input)) {
       farewell <- "Goodbye! The commit is still staged whenever you're ready to review again."
       output_response(farewell, voice)
+      tty_output(paste0("\n", ansi_bg_blue(), ansi_bold(), " \U0001F44B SESSION ENDED ", ansi_reset()), bell = TRUE)
       transcript[[length(transcript) + 1]] <- list(role = "assistant", content = farewell)
       return(list(approved = NULL, exited = TRUE, transcript = transcript))
     }
@@ -190,7 +196,13 @@ conversation_loop <- function(chat, voice, timeout_secs) {
 #' @keywords internal
 get_user_input <- function(voice, timeout_secs) {
   if (voice) {
-    voice_listen(timeout_secs = timeout_secs)
+    # Show listening indicator
+    tty_output(paste0("\n", ansi_yellow_bold(), "\U0001F3A4 Listening...", ansi_reset()), bell = TRUE)
+    result <- voice_listen(timeout_secs = timeout_secs)
+    if (!is.null(result) && nzchar(trimws(result))) {
+      tty_output(paste0(ansi_cyan(), "You: ", ansi_reset(), result))
+    }
+    result
   } else {
     readline(prompt = "You: ")
   }
@@ -202,13 +214,63 @@ get_user_input <- function(voice, timeout_secs) {
 #' @param voice Logical for voice mode
 #' @keywords internal
 output_response <- function(text, voice) {
-  # Always print to console
-  cli::cli_alert_info("Counselor: {text}")
+  # Output to TTY with formatting
+  tty_output(paste0("\n", ansi_magenta_bold(), "\U0001F451 Counselor:", ansi_reset(), " ", text))
 
   if (voice) {
     voice_speak(text)
   }
 }
+
+#' Write directly to TTY
+#'
+#' Writes output directly to the terminal, bypassing stdout redirection.
+#' This ensures output is visible even when running from git hooks.
+#'
+#' @param text Text to output
+#' @param bell Logical. If TRUE, ring terminal bell (visual alert in most terminals)
+#' @keywords internal
+tty_output <- function(text, bell = FALSE) {
+  # Try to write to /dev/tty for direct terminal access
+  tty_path <- "/dev/tty"
+
+  output <- if (bell) paste0("\a", text, "\n") else paste0(text, "\n")
+
+  if (file.exists(tty_path)) {
+    tryCatch({
+      con <- file(tty_path, open = "w")
+      on.exit(close(con), add = TRUE)
+      cat(output, file = con)
+    }, error = function(e) {
+      # Fall back to stderr (more likely to be visible than stdout)
+      message(strip_ansi(text))
+    })
+  } else {
+    # Windows or no TTY - fall back to message()
+    message(strip_ansi(text))
+  }
+}
+
+#' Strip ANSI codes from text
+#' @param text Text with ANSI codes
+#' @return Plain text
+#' @keywords internal
+strip_ansi <- function(text) {
+  gsub("\x1b\\[[0-9;]*m", "", text)
+}
+
+# ANSI escape code helpers (using hex \x1b instead of octal \033)
+# This avoids R's restriction on mixing Unicode and octal escapes
+ansi_reset <- function() "\x1b[0m"
+ansi_bold <- function() "\x1b[1m"
+ansi_dim <- function() "\x1b[2m"
+ansi_green_bold <- function() "\x1b[32m\x1b[1m"
+ansi_yellow_bold <- function() "\x1b[33m\x1b[1m"
+ansi_magenta_bold <- function() "\x1b[35m\x1b[1m"
+ansi_cyan <- function() "\x1b[36m"
+ansi_bg_green <- function() "\x1b[42m"
+ansi_bg_red <- function() "\x1b[41m"
+ansi_bg_blue <- function() "\x1b[44m"
 
 #' Check for Approval Phrases
 #'
