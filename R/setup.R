@@ -27,7 +27,7 @@ counselor_setup <- function(use_1password = FALSE, check_only = FALSE) {
   cli::cli_h1("counselor Setup")
 
   # Check current status
-  status <- check_api_keys(verbose = !check_only)
+  status <- api_key_status(verbose = !check_only)
 
   if (check_only) {
     return(invisible(status))
@@ -40,7 +40,7 @@ counselor_setup <- function(use_1password = FALSE, check_only = FALSE) {
     if (cli_confirm("Would you like to reconfigure anyway?")) {
       # Continue to setup
     } else {
-      cli::cli_text("Run {.fn check_api_keys} anytime to verify your configuration.")
+      cli::cli_text("Run {.fn api_key_status} anytime to verify your configuration.")
       return(invisible(status))
     }
   }
@@ -56,7 +56,7 @@ counselor_setup <- function(use_1password = FALSE, check_only = FALSE) {
   # Re-check after setup
   cli::cli_text("")
   cli::cli_h2("Verifying Configuration")
-  new_status <- check_api_keys(verbose = TRUE)
+  new_status <- api_key_status(verbose = TRUE)
 
   if (new_status$all_configured) {
     cli::cli_text("")
@@ -71,9 +71,11 @@ counselor_setup <- function(use_1password = FALSE, check_only = FALSE) {
 }
 
 
-#' Check API Key Configuration
+#' API Key Status
 #'
-#' Checks which API keys are configured for counselor.
+#' Shows which API keys are configured for counselor. Unlike the internal
+#' `check_api_keys()` which throws errors, this function displays a friendly
+#' status report.
 #'
 #' @param verbose Logical. If TRUE, prints status messages. Default is TRUE.
 #'
@@ -84,10 +86,10 @@ counselor_setup <- function(use_1password = FALSE, check_only = FALSE) {
 #'   - `cartesia`: TRUE if CARTESIA_API_KEY is set
 #'
 #' @examples
-#' check_api_keys()
+#' api_key_status()
 #'
 #' @export
-check_api_keys <- function(verbose = TRUE) {
+api_key_status <- function(verbose = TRUE) {
   keys <- list(
     anthropic = list(
       env_var = "ANTHROPIC_API_KEY",

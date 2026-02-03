@@ -62,7 +62,7 @@ Keys are stored globally in `~/.Renviron` so they work across all your R project
 **Check your configuration anytime:**
 
 ```r
-counselor::check_api_keys()
+counselor::api_key_status()
 ```
 
 ### 2. Install Git Hook 🪝
