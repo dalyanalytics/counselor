@@ -236,18 +236,19 @@ tty_output <- function(text, bell = FALSE) {
 
   output <- if (bell) paste0("\a", text, "\n") else paste0(text, "\n")
 
-  if (file.exists(tty_path)) {
-    tryCatch({
+  # Try TTY first (works when running from interactive terminal/git hook)
+  tty_success <- tryCatch({
+    suppressWarnings({
       con <- file(tty_path, open = "w")
       on.exit(close(con), add = TRUE)
       cat(output, file = con)
-    }, error = function(e) {
-      # Fall back to stderr (more likely to be visible than stdout)
-      message(strip_ansi(text))
     })
-  } else {
-    # Windows or no TTY - fall back to message()
-    message(strip_ansi(text))
+    TRUE
+  }, error = function(e) FALSE)
+
+  # Fall back to cat with ANSI codes (works in Positron/VS Code terminals)
+  if (!tty_success) {
+    cat(output)
   }
 }
 
