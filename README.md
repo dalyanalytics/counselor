@@ -18,6 +18,10 @@ They auto-commit AI-generated code without review. We engage in thoughtful voice
 
 <br clear="both"/>
 
+## 🎬 Demo
+
+https://github.com/dalyanalytics/counselor/raw/main/counselor-demo.mp4
+
 ## 🎤 Why Voice?
 
 - **Hands stay on keyboard** — no context switching to review UIs
@@ -78,7 +82,6 @@ Now every `git commit` will trigger a voice review session.
 ## 👑 Usage
 
 ### Automatic (via git hook)
-- making a change to test things out
 
 ```bash
 git add .
