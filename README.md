@@ -22,7 +22,8 @@ They auto-commit AI-generated code without review. We engage in thoughtful voice
 
 > Check out a demonstration of `counselor` in action reviewing a commit from a development session of the [Setback Card Game](https://github.com/dalyanalytics/setback).
 
-<p align="center"><video src="[https://github.com/user-attachments/assets/0ad14e37-2de7-46df-870a-167aa667df16](https://github.com/user-attachments/assets/c246a8d0-8a8c-412b-af63-96904b7c5257)" width="500" controls></video></p>
+
+<p align="center"><video src="[https://github.com/user-attachments/assets/0ad14e37-2de7-46df-870a-167aa667df16](https://github.com/user-attachments/assets/0ad14e37-2de7-46df-870a-167aa667df16)" width="500" controls></video></p>
 
 
 
